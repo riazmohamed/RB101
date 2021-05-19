@@ -8,20 +8,23 @@
 Kernel.puts("Welcome to the Calculator!")
 
 Kernel.puts("Please enter the first number")
-number1 = Kernel.gets().chomp().to_i
+number1 = Kernel.gets().chomp()
 
 Kernel.puts("Please enter the second number")
-number2 = Kernel.gets().chomp().to_i
+number2 = Kernel.gets().chomp()
 
 Kernel.puts("What operations would you like to do?")
 Kernel.puts("1)Add 2)Subtract 3)Multiply 4)Divide")
-answer = Kernel.gets().chomp.to_i
+operator = Kernel.gets().chomp
 
-result = case answer
-            when 1 then number1 + number2
-            when 2 then number1 - number2
-            when 3 then number1 * number2
-            when 4 then number1.to_f / number2.to_f
-          end
+if operator == '1'
+  result = number1.to_i() + number2.to_i()
+elsif operator == '2'
+  result = number1.to_i() - number2.to_i()
+elsif operator == '3'
+  result = number1.to_i() * number2.to_i()
+else
+  result = number1.to_f() / number2.to_f()
+end
 
 Kernel.puts("The result is #{result}")
