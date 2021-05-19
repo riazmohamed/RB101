@@ -32,16 +32,17 @@
     iterator = iterator += 1
 
   PRINT saved_number
-  
+
   END
 =end
 
 
 def find_greatest(numbers)
-  saved_number = nil
+  return if numbers.nil?
+  saved_number = numbers.first
 
   numbers.each do |num|
-    saved_number ||= num
+    # saved_number ||= num
 
     if saved_number >= num
       next
