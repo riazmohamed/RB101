@@ -5,6 +5,14 @@
 =begin
 keywords: START, SET, GET, PRINT, READ, IF, ELSE IF, ELSE, WHILE, END
 
+------- Informal
+# given value of two integers
+- assign the value of the first integer to num1
+- assign the value of the second integer to num2
+- add the two integers and assign the value returned by them to another variable called 'sum'
+- print the value of sum and exit the program
+
+---------- Formal Pseudo code
 START
 
 # given two integers

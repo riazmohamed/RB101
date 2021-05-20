@@ -5,6 +5,14 @@
 =begin
 keywords: START, SET, GET, PRINT, READ, IF, ELSE IF, ELSE, WHILE, END
 
+------- Informal
+# given an collection of integers
+- create a local variable called 'arr' and assign an empty array to it.
+- iterate over the given array and select the value within the collection at the odd position.
+- capture the selected values and store them within 'arr'
+- print 'arr' and exit the program
+
+---------- Formal Pseudo code
 START
 # Given an array of integers
 

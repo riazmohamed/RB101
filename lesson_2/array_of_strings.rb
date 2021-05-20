@@ -5,6 +5,16 @@
 =begin
 keywords: START, SET, GET, PRINT, READ, IF, ELSE IF, ELSE, WHILE, END
 
+------- Informal
+
+# given an array of strings
+
+- create a variable called the result_string and assign the first value of the element within the collection at space 1 to it
+- iterator over the array while appending the next value to the result_string seperated by a space.
+- when the program reaches the last iteration print the result_string and exit the program
+
+---------- Formal Pseudo code
+
 START
 # Given an array of strings
 
