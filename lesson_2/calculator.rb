@@ -50,26 +50,30 @@ WHILE keep_going == true
 PRINT large_numbers
 =end
 
-Kernel.puts("Welcome to the Calculator!")
+def prompt(message)
+  Kernel.puts("=> #{message}")
+end
 
-Kernel.puts("Please enter the first number")
+prompt("Welcome to the Calculator!")
+
+prompt("Please enter the first number")
 number1 = Kernel.gets().chomp()
 
-Kernel.puts("Please enter the second number")
+prompt("Please enter the second number")
 number2 = Kernel.gets().chomp()
 
-Kernel.puts("What operations would you like to do?")
-Kernel.puts("1)Add 2)Subtract 3)Multiply 4)Divide")
+prompt("What operation would you like to peform? 1)Add 2)Subtract 3)Multiply 4)Divide")
 operator = Kernel.gets().chomp
 
-if operator == '1'
-  result = number1.to_i() + number2.to_i()
-elsif operator == '2'
-  result = number1.to_i() - number2.to_i()
-elsif operator == '3'
-  result = number1.to_i() * number2.to_i()
-else
-  result = number1.to_f() / number2.to_f()
+result = case operator
+         when '1'
+           number1.to_i() + number2.to_i()
+         when '2'
+           number1.to_i() - number2.to_i()
+         when '3'
+           number1.to_i() * number2.to_i()
+         else
+           number1.to_f() / number2.to_f()
 end
 
 Kernel.puts("The result is #{result}")
