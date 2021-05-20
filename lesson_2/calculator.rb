@@ -54,26 +54,103 @@ def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
-prompt("Welcome to the Calculator!")
-
-prompt("Please enter the first number")
-number1 = Kernel.gets().chomp()
-
-prompt("Please enter the second number")
-number2 = Kernel.gets().chomp()
-
-prompt("What operation would you like to peform? 1)Add 2)Subtract 3)Multiply 4)Divide")
-operator = Kernel.gets().chomp
-
-result = case operator
-         when '1'
-           number1.to_i() + number2.to_i()
-         when '2'
-           number1.to_i() - number2.to_i()
-         when '3'
-           number1.to_i() * number2.to_i()
-         else
-           number1.to_f() / number2.to_f()
+def valid_number?(number)
+  number.to_i != 0
 end
 
-Kernel.puts("The result is #{result}")
+def operation_to_message(op)
+  case op
+  when '1'
+    'Adding'
+  when '2'
+    'Subtracting'
+  when '3'
+    'Multiplying'
+  when '4'
+    'Dividing'
+  end
+end
+
+name = ''
+prompt("Welcome to the Calculator! Enter your name:")
+
+loop do
+  name = Kernel.gets().chomp()
+
+  if name.empty?
+    prompt("Make sure to use a valid name.")
+  else
+    break
+  end
+end
+
+prompt("Hi #{name}!")
+
+loop do # main loop
+  number1 = ""
+
+  loop do
+    prompt("Please enter the first number")
+    number1 = Kernel.gets().chomp()
+
+    if valid_number?(number1)
+      break
+    else
+      prompt("Hmmm..... that doesnt look right!")
+    end
+  end
+
+  number2 = ""
+  loop do
+    prompt("Please enter the second number")
+    number2 = Kernel.gets().chomp()
+
+    if valid_number?(number2)
+      break
+    else
+      prompt("Hmmm..... that doesnt look right!")
+    end
+  end
+
+  operator_prompt = <<-MSG
+    What operation would you like to perform?
+    1) Add
+    2) Subtract
+    3) Multiply
+    4) Divide
+  MSG
+
+  prompt(operator_prompt)
+
+  operator = ""
+  loop do
+    operator = Kernel.gets().chomp
+
+    if %w(1 2 3 4).include?(operator)
+      break
+    else
+      prompt("Must choose 1, 2, 3 or 4")
+    end
+  end
+
+  prompt("#{operation_to_message(operator)} the two numbers...")
+
+  result = case operator
+           when '1'
+             number1.to_i() + number2.to_i()
+           when '2'
+             number1.to_i() - number2.to_i()
+           when '3'
+             number1.to_i() * number2.to_i()
+           else
+             number1.to_f() / number2.to_f()
+  end
+
+  prompt("The result is #{result}")
+
+  prompt("Do you want to perform another calculation? (Y to calculate again)")
+  answer = Kernel.gets().chomp()
+  break unless answer.downcase().start_with?('y')
+end
+
+prompt("Thank you for using the calculator. Goodbye!")
