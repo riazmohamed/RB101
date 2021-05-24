@@ -5,20 +5,34 @@ def prompt(message)
 end
 
 def valid_number?(number)
-  number.to_i.to_s == number 
+  number.to_i != 0
+end
+
+def integer?(number)
+  number.to_i.to_s == 0
+end
+
+def float?(number)
+  number.to_f.to_s == number
+end
+
+def number?(number)
+  integer?(number) || float?(number)
 end
 
 def operation_to_message(op)
-  case op
-  when '1'
-    'Adding'
-  when '2'
-    'Subtracting'
-  when '3'
-    'Multiplying'
-  when '4'
-    'Dividing'
-  end
+  result = case op
+             when '1'
+               'Adding'
+             when '2'
+               'Subtracting'
+             when '3'
+               'Multiplying'
+             when '4'
+               'Dividing'
+           end
+
+  result
 end
 
 name = ''
