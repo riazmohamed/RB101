@@ -1,7 +1,23 @@
-welcome: "Welcome to Calculator! Enter your name:"
-valid_name: "Make sure to enter a valid name."
-invalid_number: "Hmmm..... that doesnt look right!"
-first_number: "Please enter the first number"
-second_number: "Please enter the second number"
-another_calculation: "Do you want to perform another calculation? (Y to calculate again)"
-good_bye: "Thank you for using the calculator. Goodbye!"
+en:
+  welcome: "Welcome to Calculator! Enter your name:"
+  valid_name: "Make sure to enter a valid name."
+  invalid_number: "Hmmm..... that doesnt look right!"
+  first_number: "Please enter the first number"
+  second_number: "Please enter the second number"
+  another_calculation: "Do you want to perform another calculation? (Y to calculate again)"
+  good_bye: "Thank you for using the calculator. Goodbye!"
+  operator_prompt: |
+    What operation would you like to perform?
+    1) Add
+    2) Subtract
+    3) Multiply
+    4) Divide
+
+es:
+  welcome: "Welcome to Calculator! Enter your name:"
+  valid_name: "Asegúrese de entrar un nombre válido."
+  invalid_number: "Hmm ... ¡eso no se ve bien!"
+  first_number: "Ingrese el primer número"
+  second_number: "Ingrese el segundo número"
+  another_calculation: "Quieres realizar otro cálculo? (Y para calcular de nuevo)"
+  good_bye: "Gracias por usar la calculadora. Adiós!"

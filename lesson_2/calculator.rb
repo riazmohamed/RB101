@@ -2,6 +2,12 @@
 
 require 'yaml'
 MESSAGES = YAML.load_file('calculator_messages.yml')
+LANGUAGE = 'en'
+
+
+def messages(message, lang='en')
+  MESSAGES[lang][message]
+end
 
 def prompt(message)
   Kernel.puts("=> #{message}")
@@ -39,13 +45,13 @@ def operation_to_message(op)
 end
 
 name = ''
-prompt(MESSAGES['welcome'])
+prompt(messages('welcome'))
 
 loop do
   name = Kernel.gets().chomp()
 
   if name.empty?
-    prompt(MESSAGES['valid_name'])
+    prompt(messages('valid_name'))
   else
     break
   end
@@ -57,37 +63,37 @@ loop do # main loop
   number1 = ""
 
   loop do
-    prompt(MESSAGES['first_number'])
+    prompt(messages('first_number'))
     number1 = Kernel.gets().chomp()
 
     if valid_number?(number1)
       break
     else
-      prompt(MESSAGES['invalid_number'])
+      prompt(messages('invalid_number'))
     end
   end
 
   number2 = ""
   loop do
-    prompt(MESSAGES['second_number'])
+    prompt(messages('second_number'))
     number2 = Kernel.gets().chomp()
 
     if valid_number?(number2)
       break
     else
-      prompt(MESSAGES['invalid_number'])
+      prompt(messages('invalid_number'))
     end
   end
 
-  operator_prompt = <<-MSG
-    What operation would you like to perform?
-    1) Add
-    2) Subtract
-    3) Multiply
-    4) Divide
-  MSG
+  # operator_prompt = <<-MSG
+  #   What operation would you like to perform?
+  #   1) Add
+  #   2) Subtract
+  #   3) Multiply
+  #   4) Divide
+  # MSG
 
-  prompt(operator_prompt)
+  prompt(messages('operator_prompt'))
 
   operator = ""
   loop do
@@ -115,9 +121,9 @@ loop do # main loop
 
   prompt("The result is #{result}")
 
-  prompt(MESSAGES['another_calculation'])
+  prompt(messages('another_calculation'))
   answer = Kernel.gets().chomp()
   break unless answer.downcase().start_with?('y')
 end
 
-prompt(MESSAGES['good_bye'])
+prompt(messages('good_bye'))
