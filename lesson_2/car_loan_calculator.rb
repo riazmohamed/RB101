@@ -41,17 +41,23 @@ keywords: START, SET, GET, PRINT, READ, IF, ELSE IF, ELSE, WHILE, END, SUBPROCES
 
 # Code with intent
 
-puts "Please enter the loan amount required > :"
+def prompt(message)
+  Kernel.puts("=> #{message}")
+end
+
+prompt("Welcome to the Mortgage calculator!")
+
+prompt("Please enter the loan amount required. =>")
 loan_amount = gets.chomp.to_i
 
-puts "Please enter the duration to repay in months > :"
+prompt("Please enter the duration to repay in months > :")
 loan_duration = gets.chomp.to_i
 
-puts "Please choose the APR% that you are willing to repay > :"
+prompt("Please choose the APR% that you are willing to repay > :")
 annual_percentage_rate = (gets.chomp.to_f) / 100
 monthly_interest_rate = annual_percentage_rate / 12
 
 # loan calculation based on the formula
 monthly_payment = loan_amount * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)**(-loan_duration)))
 
-puts "Your monthly payment is: $#{format('%.2f', monthly_payment)}"
+prompt("Your monthly payment is: $#{format('%.2f', monthly_payment)}")
