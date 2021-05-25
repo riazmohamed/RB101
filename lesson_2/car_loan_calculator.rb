@@ -45,19 +45,31 @@ def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
+def valid_number?(number)
+  if number.empty? || number.to_f < 0
+    prompt("Please enter a positive number.")
+  else
+    prompt("\t=> The number you have entered is #{number}")
+  end
+end
+
 prompt("Welcome to the Mortgage calculator!")
 
 prompt("Please enter the loan amount required. =>")
-loan_amount = gets.chomp.to_i
+loan_amount = gets.chomp
+valid_number?(loan_amount)
 
 prompt("Please enter the duration to repay in months > :")
-loan_duration = gets.chomp.to_i
+loan_duration = gets.chomp
+valid_number?(loan_duration)
 
 prompt("Please choose the APR% that you are willing to repay > :")
 annual_percentage_rate = (gets.chomp.to_f) / 100
 monthly_interest_rate = annual_percentage_rate / 12
 
 # loan calculation based on the formula
-monthly_payment = loan_amount * (monthly_interest_rate / (1 - (1 + monthly_interest_rate)**(-loan_duration)))
+monthly_payment = loan_amount.to_f *
+                  (monthly_interest_rate /
+                  (1 - (1 + monthly_interest_rate)**(-loan_duration.to_i)))
 
 prompt("Your monthly payment is: $#{format('%.2f', monthly_payment)}")
