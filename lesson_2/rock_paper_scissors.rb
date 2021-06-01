@@ -38,7 +38,6 @@ loop do
 
   display_results(choice, computer_choice)
 
-
   prompt("Do you want to play again?")
   answer = Kernel.gets().chomp
   break unless answer.downcase().start_with?('y')
