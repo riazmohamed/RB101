@@ -2,28 +2,15 @@
 
 =begin
 things to do
-- add lizard and spock to the valid choices
-- rules for lizard and spock
-  - rock crushes lizard
-  - lizard poisons spock
-  - scissors decapitates lizard
-  - lizards eat paper
-  - paper disproves spock
-  - spock vaporizes rock
+things to do
+- to keep the score of the players. Best of three wins
 
-  simplified version in a hash template
-  winner on the left and the subdued on the right
-  {
-    'rock' => ['scissors', 'lizard'],
-    'paper' => ['rock', 'spock'],
-    'scissors' => ['paper', 'lizard'],
-    'lizard' => ['spock', 'paper'],
-    'spock' => ['rock', 'scissors']
-  }
+implicit requirement
+- when it is a draw then no one gets a point
 
-algorithm
-- if the player chooses the key and the computer chooses the associated value then the player wins.
-else the computer wins. Keep count of the number of times each person won and whoever wins thrice first is the overall winner
+Algorithm
+- everytime someone wins the score increments by 1
+- return the winner's name when the score reaches 3
 
 =end
 
