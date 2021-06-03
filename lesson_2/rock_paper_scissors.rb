@@ -1,4 +1,32 @@
 # rock_paper_scissors.rb
+
+=begin
+things to do
+- add lizard and spock to the valid choices
+- rules for lizard and spock
+  - rock crushes lizard
+  - lizard poisons spock
+  - scissors decapitates lizard
+  - lizards eat paper
+  - paper disproves spock
+  - spock vaporizes rock
+
+  simplified version in a hash template
+  winner on the left and the subdued on the right
+  {
+    'rock' => ['scissors', 'lizard'],
+    'paper' => ['rock', 'spock'],
+    'scissors' => ['paper', 'lizard'],
+    'lizard' => ['spock', 'paper'],
+    'spock' => ['rock', 'scissors']
+  }
+
+algorithm
+- if the player chooses the key and the computer chooses the associated value then the player wins.
+else the computer wins. Keep count of the number of times each person won and whoever wins thrice first is the overall winner
+
+=end
+
 VALID_CHOICES = %w(rock paper scissors)
 
 def prompt(message)
