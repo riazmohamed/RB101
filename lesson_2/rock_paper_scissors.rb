@@ -1,17 +1,5 @@
 # rock_paper_scissors.rb
 
-=begin
-things to do
-- to keep the score of the players. Best of three wins
-
-implicit requirement
-- when it is a draw then no one gets a point
-
-Algorithm
-- everytime someone wins the score increments by 1
-- return the winner's name when the score reaches 3
-
-=end
 VALID_CHOICES = {'r' => "rock", 'p' => "paper", 'sc' => "scissors", 'l' => "lizard", 'sp' => "spock"}
 
 def prompt(message)
@@ -28,10 +16,6 @@ def win?(first, second)
   }
 
   logic[first].include?(second)
-
-  # (first == 'rock' && second == 'scissors') ||
-  #   (first == 'paper' && second == 'rock') ||
-  #   (first == 'scissors' && second == 'paper')
 end
 
 def display_results(player, computer)
