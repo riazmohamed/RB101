@@ -34,9 +34,15 @@ def prompt(message)
 end
 
 def win?(first, second)
-  (first == 'rock' && second == 'scissors') ||
-    (first == 'paper' && second == 'rock') ||
-    (first == 'scissors' && second == 'paper')
+  logic = {
+    'rock' => ['scissors', 'lizard'],
+    'paper' => ['rock', 'spock'],
+    'scissors' => ['paper', 'lizard'],
+    'lizard' => ['spock', 'paper'],
+    'spock' => ['rock', 'scissors']
+  }
+
+  logic[first].include?(second)
 end
 
 def display_results(player, computer)
