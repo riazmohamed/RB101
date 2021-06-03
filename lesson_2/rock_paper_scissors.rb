@@ -2,7 +2,6 @@
 
 =begin
 things to do
-things to do
 - to keep the score of the players. Best of three wins
 
 implicit requirement
@@ -13,7 +12,6 @@ Algorithm
 - return the winner's name when the score reaches 3
 
 =end
-
 VALID_CHOICES = {'r' => "rock", 'p' => "paper", 'sc' => "scissors", 'l' => "lizard", 'sp' => "spock"}
 
 def prompt(message)
@@ -30,6 +28,10 @@ def win?(first, second)
   }
 
   logic[first].include?(second)
+
+  # (first == 'rock' && second == 'scissors') ||
+  #   (first == 'paper' && second == 'rock') ||
+  #   (first == 'scissors' && second == 'paper')
 end
 
 def display_results(player, computer)
@@ -42,24 +44,43 @@ def display_results(player, computer)
   end
 end
 
-loop do
-  choice = ''
-  loop do
-    VALID_CHOICES.each {|key, value| puts "Input '#{key}' for '#{value}'"}
-    choice = VALID_CHOICES[Kernel.gets().chomp().downcase]
+def score_count(player, computer)
+  win?(player, computer)
+end
 
-    if VALID_CHOICES.values.include?(choice)
+loop do
+  score = { player: 0, computer: 0}
+  loop do
+    choice = ''
+    loop do
+      VALID_CHOICES.each {|key, value| puts "Input '#{key}' for '#{value}'"}
+      choice = VALID_CHOICES[Kernel.gets().chomp().downcase]
+
+      if VALID_CHOICES.values.include?(choice)
+        break
+      else
+        prompt("That's not a valid choice.")
+      end
+    end
+
+    computer_choice = VALID_CHOICES.values.sample
+
+    prompt("You chose: #{choice}; Computer chose: #{computer_choice}")
+
+    display_results(choice, computer_choice)
+
+    # COUNTING THE SCORE and DECLARING THE GRAND WINNER
+    score[:player] += 1 if score_count(choice, computer_choice)
+    score[:computer] += 1 if score_count(computer_choice, choice)
+
+    puts "Your score:#{score[:player]}, computer score:#{score[:computer]}"
+
+    if score[:player] >= 3 || score[:computer] >= 3
+      grand_winner = score.key(score.values.max).to_s
+      puts "The grand winner is '#{grand_winner}'!"
       break
-    else
-      prompt("That's not a valid choice.")
     end
   end
-
-  computer_choice = VALID_CHOICES.values.sample
-
-  prompt("You chose: #{choice}; Computer chose: #{computer_choice}")
-
-  display_results(choice, computer_choice)
 
   prompt("Do you want to play again?")
   answer = Kernel.gets().chomp
