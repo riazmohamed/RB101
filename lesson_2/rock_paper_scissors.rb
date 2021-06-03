@@ -1,6 +1,10 @@
 # rock_paper_scissors.rb
 
-VALID_CHOICES = {'r' => "rock", 'p' => "paper", 'sc' => "scissors", 'l' => "lizard", 'sp' => "spock"}
+VALID_CHOICES = { 'r' => "rock",
+                  'p' => "paper",
+                  'sc' => "scissors",
+                  'l' => "lizard",
+                  'sp' => "spock" }
 
 def prompt(message)
   Kernel.puts("=> #{message}")
@@ -33,11 +37,11 @@ def score_count(player, computer)
 end
 
 loop do
-  score = { player: 0, computer: 0}
+  score = { player: 0, computer: 0 }
   loop do
     choice = ''
     loop do
-      VALID_CHOICES.each {|key, value| puts "Input '#{key}' for '#{value}'"}
+      VALID_CHOICES.each { |key, value| puts "Input '#{key}' for '#{value}'" }
       choice = VALID_CHOICES[Kernel.gets().chomp().downcase]
 
       if VALID_CHOICES.values.include?(choice)
