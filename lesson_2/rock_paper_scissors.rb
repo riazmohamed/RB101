@@ -27,7 +27,7 @@ else the computer wins. Keep count of the number of times each person won and wh
 
 =end
 
-VALID_CHOICES = %w(rock paper scissors)
+VALID_CHOICES = {'r' => "rock", 'p' => "paper", 'sc' => "scissors", 'l' => "lizard", 'sp' => "spock"}
 
 def prompt(message)
   Kernel.puts("=> #{message}")
@@ -58,17 +58,17 @@ end
 loop do
   choice = ''
   loop do
-    prompt("Choose one: #{VALID_CHOICES.join(', ')}")
-    choice = Kernel.gets().chomp()
+    VALID_CHOICES.each {|key, value| puts "Input '#{key}' for '#{value}'"}
+    choice = VALID_CHOICES[Kernel.gets().chomp().downcase]
 
-    if VALID_CHOICES.include?(choice)
+    if VALID_CHOICES.values.include?(choice)
       break
     else
       prompt("That's not a valid choice.")
     end
   end
 
-  computer_choice = VALID_CHOICES.sample
+  computer_choice = VALID_CHOICES.values.sample
 
   prompt("You chose: #{choice}; Computer chose: #{computer_choice}")
 
