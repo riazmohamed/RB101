@@ -41,6 +41,14 @@ def score_count(player, computer)
   win?(player, computer)
 end
 
+def someone_won?(player_score, computer_score)
+  player_score >= WIN_SCORE || computer_score >= WIN_SCORE
+end
+
+def grand_winner(score)
+  score.key(score.values.max).to_s
+end
+
 loop do
   score = { player: 0, computer: 0 }
   loop do
@@ -67,9 +75,8 @@ loop do
 
     puts "Your score:#{score[:player]}, computer score:#{score[:computer]}"
 
-    if score[:player] >= WIN_SCORE || score[:computer] >= WIN_SCORE
-      grand_winner = score.key(score.values.max).to_s
-      puts "The grand winner is '#{grand_winner}'!"
+    if someone_won?(score[:player], score[:computer])
+      puts "The grand winner is '#{grand_winner(score)}'!"
       break
     end
   end
