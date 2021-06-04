@@ -6,6 +6,8 @@ VALID_CHOICES = { 'r' => "rock",
                   'l' => "lizard",
                   'sp' => "spock" }
 
+WIN_SCORE = 3
+
 def prompt(message)
   Kernel.puts("=> #{message}")
 end
@@ -61,7 +63,7 @@ loop do
 
     puts "Your score:#{score[:player]}, computer score:#{score[:computer]}"
 
-    if score[:player] >= 3 || score[:computer] >= 3
+    if score[:player] >= WIN_SCORE || score[:computer] >= WIN_SCORE
       grand_winner = score.key(score.values.max).to_s
       puts "The grand winner is '#{grand_winner}'!"
       break
