@@ -12,6 +12,15 @@ def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
+def welcome_message
+  clear_screen
+  prompt("Let's play - Rock, Paper, Scissors, Lizard & Spock!")
+  sleep 1.5
+  clear_screen
+  prompt("Best of the three wins!")
+  sleep 1.5
+end
+
 def get_user_choice
   VALID_CHOICES.each { |key, value| puts "Input '#{key}' for '#{value}'" }
   VALID_CHOICES[Kernel.gets().chomp().downcase]
@@ -42,8 +51,11 @@ def score_count(player, computer)
 end
 
 def update_score(score, choice1, choice2)
-  return score[:player] += 1 if score_count(choice1, choice2)
-  return score[:computer] += 1 if score_count(choice2, choice1)
+  if score_count(choice1, choice2)
+    score[:player] += 1
+  elsif score_count(choice2, choice1)
+    score[:computer] += 1
+  end
 end
 
 def someone_won?(player_score, computer_score)
@@ -53,6 +65,25 @@ end
 def grand_winner(score)
   score.key(score.values.max).to_s
 end
+
+def clear_screen
+  system("clear") || system("cls")
+end
+
+def play_again?
+  answer = ''
+
+  loop do
+    prompt "Do you want to play again? (y or n)"
+    answer = gets.chomp.downcase
+    break if ['y', 'yes', 'n', 'no'].include?(answer)
+    prompt "Please choose y or n"
+  end
+
+  ['y', 'yes'].include?(answer) ? welcome_message : false
+end
+
+welcome_message
 
 loop do
   score = { player: 0, computer: 0 }
@@ -72,6 +103,8 @@ loop do
 
     prompt("You chose: #{choice}; Computer chose: #{computer_choice}")
 
+    clear_screen
+
     display_results(choice, computer_choice)
 
     update_score(score, choice, computer_choice)
@@ -84,9 +117,7 @@ loop do
     end
   end
 
-  prompt("Do you want to play again?")
-  answer = Kernel.gets().chomp
-  break unless answer.downcase().start_with?('y')
+  break unless play_again?
 end
 
 prompt("Thank you for playing Good bye!")
