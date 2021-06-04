@@ -12,6 +12,10 @@ def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
+def clear_screen
+  system("clear") || system("cls")
+end
+
 def welcome_message
   clear_screen
   prompt("Let's play - Rock, Paper, Scissors, Lizard & Spock!")
@@ -64,10 +68,6 @@ end
 
 def grand_winner(score)
   score.key(score.values.max).to_s
-end
-
-def clear_screen
-  system("clear") || system("cls")
 end
 
 def play_again?
