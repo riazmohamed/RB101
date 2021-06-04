@@ -41,6 +41,11 @@ def score_count(player, computer)
   win?(player, computer)
 end
 
+def update_score(score, choice1, choice2)
+  return score[:player] += 1 if score_count(choice1, choice2)
+  return score[:computer] += 1 if score_count(choice2, choice1)
+end
+
 def someone_won?(player_score, computer_score)
   player_score >= WIN_SCORE || computer_score >= WIN_SCORE
 end
@@ -69,9 +74,7 @@ loop do
 
     display_results(choice, computer_choice)
 
-    # COUNTING THE SCORE and DECLARING THE GRAND WINNER
-    score[:player] += 1 if score_count(choice, computer_choice)
-    score[:computer] += 1 if score_count(computer_choice, choice)
+    update_score(score, choice, computer_choice)
 
     puts "Your score:#{score[:player]}, computer score:#{score[:computer]}"
 
