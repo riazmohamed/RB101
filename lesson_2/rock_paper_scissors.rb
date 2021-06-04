@@ -12,6 +12,11 @@ def prompt(message)
   Kernel.puts("=> #{message}")
 end
 
+def get_user_choice
+  VALID_CHOICES.each { |key, value| puts "Input '#{key}' for '#{value}'" }
+  VALID_CHOICES[Kernel.gets().chomp().downcase]
+end
+
 def win?(first, second)
   logic = { 'rock' => ['scissors', 'lizard'],
             'paper' => ['rock', 'spock'],
@@ -41,8 +46,7 @@ loop do
   loop do
     choice = ''
     loop do
-      VALID_CHOICES.each { |key, value| puts "Input '#{key}' for '#{value}'" }
-      choice = VALID_CHOICES[Kernel.gets().chomp().downcase]
+      choice = get_user_choice
 
       if VALID_CHOICES.values.include?(choice)
         break
