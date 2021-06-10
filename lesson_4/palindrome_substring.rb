@@ -48,7 +48,6 @@ Output: array of substring
 system('clear')
 puts "========================================"
 
-
 # substrings(str) logic
 # str = "supercalifragilisticexpialidocious"
 # split_array = str.split("")
@@ -68,10 +67,11 @@ algorithm :
 # word_combination_array.select { |word| word == word.reverse }
 # ===================================
 
-
 def substrings(str)
   split_array = str.split("")
-  word_combination_array = (2..split_array.length).map { |letter| split_array.each_cons(letter).map {|arr| arr.join} }.flatten
+  word_combination_array = (2..split_array.length)
+  .map { |letter| split_array.each_cons(letter)
+  .map {|arr| arr.join} }.flatten
   word_combination_array
 end
 
