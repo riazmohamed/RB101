@@ -57,11 +57,9 @@ algorithm :
 
   # Implementation details
   # word_combination_array.select { |word| word == word.reverse }
-=end
-
-=====> Optional Implementation (Pseudo-code):
 
 =end
+
 system('clear')
 puts "========================================"
 
