@@ -40,14 +40,6 @@ Implicit Requiremnts:
 input: string
 Output: array of substring
 
-=====> Algorithm:
-
-=====> Optional Implementation (Pseudo-code):
-
-=end
-system('clear')
-puts "========================================"
-
 # substrings(str) logic
 # str = "supercalifragilisticexpialidocious"
 # split_array = str.split("")
@@ -62,10 +54,16 @@ algorithm :
   - iterate through the collection of substrings
   - at each iteration check if the reverse of the substring is the same the original substring
     - if yes then move it into another collection of substrings who are palindromes
+
+  # Implementation details
+  # word_combination_array.select { |word| word == word.reverse }
 =end
 
-# word_combination_array.select { |word| word == word.reverse }
-# ===================================
+=====> Optional Implementation (Pseudo-code):
+
+=end
+system('clear')
+puts "========================================"
 
 def substrings(str)
   split_array = str.split("")
