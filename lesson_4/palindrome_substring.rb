@@ -75,13 +75,13 @@ def substrings(str)
   word_combination_array
 end
 
-def palindromes(substring)
+def palindrome_array(substring)
   substring.select { |word| word == word.reverse }.reverse
 end
 
 def palindrome_substrings(str)
   substrings_arr = substrings(str)
-  palindromes(substrings_arr)
+  palindrome_array(substrings_arr)
 end
 
 p palindrome_substrings("supercalifragilisticexpialidocious") == ["ili"]
