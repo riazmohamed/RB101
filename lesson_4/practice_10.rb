@@ -7,12 +7,13 @@ munsters = {
 }
 
 munsters.each do |name, data|
-  if (0..17).include?(data["age"])
-    munsters[name]["age_group"] = "kid"
-  elsif (18..64).include?(data["age"])
-    munsters[name]["age_group"] = "adult"
+  case data["age"]
+  when 0...18
+    data["age_group"] = "kid"
+  when 18...65
+    data["age_group"] = "adult"
   else
-    munsters[name]["age_group"] = "senior"
+    data["age_group"] = "senior"
   end
 end
 
