@@ -1,3 +1,4 @@
-ages = { "Herman" => 32, "Lily" => 30, "Grandpa" => 5843, "Eddie" => 10, "Marilyn" => 22, "Spot" => 237 }
+flintstones = %w(Fred Barney Wilma Betty BamBam Pebbles)
 
-p ages.values.min
+selected_name = flintstones.select { |name| name.start_with?("Be") }
+p flintstones.index(selected_name[0])
