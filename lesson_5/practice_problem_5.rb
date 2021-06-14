@@ -7,7 +7,7 @@ munsters = {
 }
 
 sum = 0
-munsters.each do |name, hash|
+munsters.each do |_, hash|
   sum += hash['age'] if hash['gender'] =='male'
 end
 
