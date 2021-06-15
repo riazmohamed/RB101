@@ -57,7 +57,7 @@ Output: string
 # code with intent
 # my solution
 def sub_uuid(length)
-  ele_to_choose = (0..9).to_a.chain('a'..'z').to_a
+  ele_to_choose = (0..9).to_a.chain('a'..'f').to_a
   arr = []
   length.times { arr << ele_to_choose.sample }
   arr.join
