@@ -7,7 +7,7 @@ WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
-FIRST_OF = 5
+BEST_OF = 5
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -90,9 +90,9 @@ def detect_winner(brd)
 end
 
 def grand_champion(player, computer)
-  if player > (FIRST_OF - 1)
+  if player > (BEST_OF - 1)
     return 'Player'
-  elsif computer > (FIRST_OF - 1)
+  elsif computer > (BEST_OF - 1)
     return 'Computer'
   end
 end
