@@ -43,8 +43,10 @@ def empty_squares(brd)
 end
 
 def joinor(arr, punctuation=',', join_word="or")
-  if arr.length > 1
+  if arr.length > 2
     arr[0..-2].join("#{punctuation} ") + " #{join_word} " + "#{arr[-1]}"
+  elsif arr.length == 2
+    arr.join(" #{join_word} ")
   else
     arr.first
   end
