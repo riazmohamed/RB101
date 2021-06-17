@@ -55,7 +55,7 @@ end
 def player_places_piece!(brd)
   square = ''
   loop do
-    prompt "Choose a square (#{joinor(empty_squares(brd))})"
+    prompt "Choose a position: (#{joinor(empty_squares(brd))})"
     square = gets.chomp.to_i
 
     break if empty_squares(brd).include?(square)
@@ -90,6 +90,8 @@ end
 
 loop do
   board = initialize_board
+  player_score = 0
+  computer_score = 0
 
   loop do
     display_board(board)
@@ -105,6 +107,15 @@ loop do
   else
     prompt "It's a tie!"
   end
+
+  if detect_winner(board) == 'Player'
+    player_score += 1
+  elsif detect_winner(board) == 'Computer'
+    computer_score += 1
+  end
+
+  prompt "Player score :#{player_score}"
+  prompt "Computer score :#{computer_score}"
 
   prompt "Play again? (y or n)"
   answer = gets.chomp
