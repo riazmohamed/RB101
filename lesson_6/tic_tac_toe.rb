@@ -7,6 +7,7 @@ WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
+FIRST_OF = 5
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -88,34 +89,53 @@ def detect_winner(brd)
   nil
 end
 
+def grand_champion(player, computer)
+  if player > (FIRST_OF - 1)
+    return 'Player'
+  elsif computer > (FIRST_OF - 1)
+    return 'Computer'
+  end
+end
+
 loop do
-  board = initialize_board
   player_score = 0
   computer_score = 0
+  champ = nil
 
   loop do
+    board = initialize_board
+
+    loop do
+      display_board(board)
+      prompt "Player score :#{player_score}"
+      prompt "Computer score :#{computer_score}"
+
+      player_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+      computer_places_piece!(board)
+      break if someone_won?(board) || board_full?(board)
+    end
+
     display_board(board)
-    player_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
-    computer_places_piece!(board)
-    break if someone_won?(board) || board_full?(board)
-  end
-  display_board(board)
 
-  if someone_won?(board)
-    prompt "#{detect_winner(board)} won!"
-  else
-    prompt "It's a tie!"
-  end
+    if someone_won?(board)
+      prompt "#{detect_winner(board)} won!"
+    else
+      prompt "It's a tie!"
+    end
 
-  if detect_winner(board) == 'Player'
-    player_score += 1
-  elsif detect_winner(board) == 'Computer'
-    computer_score += 1
-  end
+    if detect_winner(board) == 'Player'
+      player_score += 1
+    elsif detect_winner(board) == 'Computer'
+      computer_score += 1
+    end
 
-  prompt "Player score :#{player_score}"
-  prompt "Computer score :#{computer_score}"
+    champ = grand_champion(player_score, computer_score)
+    if champ
+      prompt "The grand champion is the '#{champ}!'"
+      break
+    end
+  end
 
   prompt "Play again? (y or n)"
   answer = gets.chomp
