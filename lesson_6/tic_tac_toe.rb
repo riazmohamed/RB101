@@ -75,11 +75,13 @@ end
 def counter_risk_square(brd)
   result = WINNING_LINES.select do |line|
     count_player_marker = brd.values_at(*line).count(PLAYER_MARKER)
-    count_player_marker == 2 && brd.values_at(*line).include?(' ')
+    count_player_marker == 2 && brd.values_at(*line).include?(INITIAL_MARKER)
   end
 
   if !result.empty?
-    result.first.each { |place| brd[place] = 'O' if brd[place] == ' ' }
+    result.first.each do |place|
+      brd[place] = COMPUTER_MARKER if brd[place] == INITIAL_MARKER
+    end
   end
 end
 
