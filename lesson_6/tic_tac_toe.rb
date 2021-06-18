@@ -65,9 +65,31 @@ def player_places_piece!(brd)
   brd[square] = PLAYER_MARKER
 end
 
+def eminent_threat?(brd)
+  result = WINNING_LINES.select do |line|
+    brd.values_at(*line).count(PLAYER_MARKER) == 2
+  end
+  !result.empty?
+end
+
+def counter_risk_square(brd)
+  result = WINNING_LINES.select do |line|
+    count_player_marker = brd.values_at(*line).count(PLAYER_MARKER)
+    count_player_marker == 2 && brd.values_at(*line).include?(' ')
+  end
+
+  if !result.empty?
+    result.first.each { |place| brd[place] = 'O' if brd[place] == ' ' }
+  end
+end
+
 def computer_places_piece!(brd)
-  square = empty_squares(brd).sample
-  brd[square] = COMPUTER_MARKER
+  if eminent_threat?(brd)
+    counter_risk_square(brd)
+  else
+    square = empty_squares(brd).sample
+    brd[square] = COMPUTER_MARKER
+  end
 end
 
 def board_full?(brd)
@@ -97,24 +119,6 @@ def grand_champion(player, computer)
   end
 end
 
-def eminent_threat?(brd)
-  result = WINNING_LINES.select do |line|
-    brd.values_at(*line).count(PLAYER_MARKER) == 2
-  end
-  !result.empty?
-end
-
-def find_at_risk_square(brd)
-  result = WINNING_LINES.select do |line|
-    count_player_marker = brd.values_at(*line).count(PLAYER_MARKER)
-    count_player_marker == 2 && brd.values_at(*line).include?(' ')
-  end
-  
-  if !result.empty?
-    result.first.each { |place| brd[place] = 'O' if brd[place] == ' ' }
-  end
-end
-
 loop do
   player_score = 0
   computer_score = 0
@@ -130,12 +134,7 @@ loop do
 
       player_places_piece!(board)
       break if someone_won?(board) || board_full?(board)
-      if eminent_threat?(board)
-        # binding.pry
-        find_at_risk_square(board)
-      else
-        computer_places_piece!(board)
-      end
+      computer_places_piece!(board)
       break if someone_won?(board) || board_full?(board)
     end
 
@@ -146,6 +145,8 @@ loop do
     else
       prompt "It's a tie!"
     end
+
+    sleep(1.5)
 
     if detect_winner(board) == 'Player'
       player_score += 1
