@@ -7,7 +7,7 @@ WINNING_LINES = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] + # rows
 INITIAL_MARKER = ' '
 PLAYER_MARKER = 'X'
 COMPUTER_MARKER = 'O'
-BEST_OF = 5
+FIRST_TO_WIN = 5
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -90,10 +90,28 @@ def detect_winner(brd)
 end
 
 def grand_champion(player, computer)
-  if player > (BEST_OF - 1)
+  if player > (FIRST_TO_WIN - 1)
     return 'Player'
-  elsif computer > (BEST_OF - 1)
+  elsif computer > (FIRST_TO_WIN - 1)
     return 'Computer'
+  end
+end
+
+def eminent_threat?(brd)
+  result = WINNING_LINES.select do |line|
+    brd.values_at(*line).count(PLAYER_MARKER) == 2
+  end
+  !result.empty?
+end
+
+def find_at_risk_square(brd)
+  result = WINNING_LINES.select do |line|
+    count_player_marker = brd.values_at(*line).count(PLAYER_MARKER)
+    count_player_marker == 2 && brd.values_at(*line).include?(' ')
+  end
+  
+  if !result.empty?
+    result.first.each { |place| brd[place] = 'O' if brd[place] == ' ' }
   end
 end
 
@@ -112,7 +130,12 @@ loop do
 
       player_places_piece!(board)
       break if someone_won?(board) || board_full?(board)
-      computer_places_piece!(board)
+      if eminent_threat?(board)
+        # binding.pry
+        find_at_risk_square(board)
+      else
+        computer_places_piece!(board)
+      end
       break if someone_won?(board) || board_full?(board)
     end
 
