@@ -65,16 +65,16 @@ def player_places_piece!(brd)
   brd[square] = PLAYER_MARKER
 end
 
-def eminent_threat?(brd)
+def eminent_threat?(brd, marker)
   result = WINNING_LINES.select do |line|
-    brd.values_at(*line).count(PLAYER_MARKER) == 2
+    brd.values_at(*line).count(marker) == 2 && brd.values_at(*line).include?(INITIAL_MARKER)
   end
   !result.empty?
 end
 
-def counter_risk_square(brd)
+def place_at_winning_square(brd, marker)
   result = WINNING_LINES.select do |line|
-    count_player_marker = brd.values_at(*line).count(PLAYER_MARKER)
+    count_player_marker = brd.values_at(*line).count(marker)
     count_player_marker == 2 && brd.values_at(*line).include?(INITIAL_MARKER)
   end
 
@@ -86,11 +86,14 @@ def counter_risk_square(brd)
 end
 
 def computer_places_piece!(brd)
-  if eminent_threat?(brd)
-    counter_risk_square(brd)
+  if eminent_threat?(brd, COMPUTER_MARKER)
+    place_at_winning_square(brd, COMPUTER_MARKER)
+  elsif eminent_threat?(brd, PLAYER_MARKER)
+    place_at_winning_square(brd, PLAYER_MARKER)
   else
     square = empty_squares(brd).sample
     brd[square] = COMPUTER_MARKER
+    # binding.pry
   end
 end
 
