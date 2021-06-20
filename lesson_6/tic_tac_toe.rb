@@ -90,13 +90,11 @@ def computer_places_piece!(brd)
     place_at_winning_square(brd, COMPUTER_MARKER)
   elsif eminent_threat?(brd, PLAYER_MARKER)
     place_at_winning_square(brd, PLAYER_MARKER)
+  elsif brd[5] == INITIAL_MARKER
+    brd[5] = COMPUTER_MARKER
   else
-    if brd[5] == INITIAL_MARKER
-      brd[5] = COMPUTER_MARKER
-    else
-      square = empty_squares(brd).sample
-      brd[square] = COMPUTER_MARKER
-    end
+    square = empty_squares(brd).sample
+    brd[square] = COMPUTER_MARKER
   end
 end
 
@@ -127,10 +125,28 @@ def grand_champion(player, computer)
   end
 end
 
+def choose_player!
+  ["Player", "Computer"].sample
+end
+
+def alternate_player(current_player)
+  return "Player" if current_player == "Computer"
+  return "Computer" if current_player == "Player"
+end
+
+def place_piece!(brd, current_player)
+  if current_player == "Player"
+    player_places_piece!(brd)
+  elsif current_player == "Computer"
+    computer_places_piece!(brd)
+  end
+end
+
 loop do
   player_score = 0
   computer_score = 0
   champ = nil
+  current_player = choose_player!
 
   loop do
     board = initialize_board
@@ -140,9 +156,8 @@ loop do
       prompt "Player score :#{player_score}"
       prompt "Computer score :#{computer_score}"
 
-      player_places_piece!(board)
-      break if someone_won?(board) || board_full?(board)
-      computer_places_piece!(board)
+      place_piece!(board, current_player)
+      current_player = alternate_player(current_player)
       break if someone_won?(board) || board_full?(board)
     end
 
