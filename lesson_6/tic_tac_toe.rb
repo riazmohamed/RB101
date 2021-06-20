@@ -91,9 +91,12 @@ def computer_places_piece!(brd)
   elsif eminent_threat?(brd, PLAYER_MARKER)
     place_at_winning_square(brd, PLAYER_MARKER)
   else
-    square = empty_squares(brd).sample
-    brd[square] = COMPUTER_MARKER
-    # binding.pry
+    if brd[5] == INITIAL_MARKER
+      brd[5] = COMPUTER_MARKER
+    else
+      square = empty_squares(brd).sample
+      brd[square] = COMPUTER_MARKER
+    end
   end
 end
 

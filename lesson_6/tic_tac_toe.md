@@ -22,3 +22,14 @@
   - if present then place the COMPUTER_MARKER in the unfilled position
   - else place the COMPUTER_MARKER randomly in the board
 - exit computer play
+
+## Computer  turn refinement
+# Pick square #5 if available
+ - computers order of execution
+   - pick winning move (or)
+   - pick defensive move (or)
+   - pick #5
+   # Algorithm
+    if #5 is available then place the COMPUTER_MARKER
+# Order of execution (computer or player going first)
+- Who goes first option that lets the computer chose who will make the first move.
