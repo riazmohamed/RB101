@@ -45,7 +45,7 @@ end
 
 def joinor(arr, punctuation=',', join_word="or")
   if arr.length > 2
-    arr[0..-2].join("#{punctuation} ") + " #{join_word} " + "#{arr[-1]}"
+    arr[0..-2].join("#{punctuation} ") + " #{join_word} " + arr[-1].to_s
   elsif arr.length == 2
     arr.join(" #{join_word} ")
   else
@@ -67,7 +67,8 @@ end
 
 def eminent_threat?(brd, marker)
   result = WINNING_LINES.select do |line|
-    brd.values_at(*line).count(marker) == 2 && brd.values_at(*line).include?(INITIAL_MARKER)
+    marker_list = brd.values_at(*line)
+    marker_list.count(marker) == 2 && marker_list.include?(INITIAL_MARKER)
   end
   !result.empty?
 end
@@ -119,9 +120,9 @@ end
 
 def grand_champion(player, computer)
   if player > (FIRST_TO_WIN - 1)
-    return 'Player'
+    'Player'
   elsif computer > (FIRST_TO_WIN - 1)
-    return 'Computer'
+    'Computer'
   end
 end
 
@@ -130,8 +131,11 @@ def choose_player!
 end
 
 def alternate_player(current_player)
-  return "Player" if current_player == "Computer"
-  return "Computer" if current_player == "Player"
+  if current_player == "Computer"
+    "Player"
+  elsif current_player == "Player"
+    "Computer"
+  end
 end
 
 def place_piece!(brd, current_player)
