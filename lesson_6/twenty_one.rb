@@ -68,6 +68,13 @@ def display_result(dealer_total, player_total)
   end
 end
 
+def display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
+  puts "==============="
+  prompt "Dealer has #{dealer_cards}, for a total of: #{dealer_total}"
+  prompt "Player has #{player_cards}, for a total of: #{player_total}"
+  display_result(dealer_total, player_total)
+end
+
 def play_again?
   puts "----------------"
   prompt "Do you want to play again? (y or n)"
@@ -116,7 +123,7 @@ loop do
   end
 
   if busted?(player_cards)
-    display_result(dealer_total, player_total)
+    display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
     play_again? ? next : break
   else
     prompt "Dealer stays at #{dealer_total}"
@@ -135,17 +142,14 @@ loop do
 
   if busted?(dealer_cards)
     prompt "Dealer total is now: #{dealer_total}"
-    display_result(dealer_total, player_total)
+    display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
     play_again? ? next : break
   else
     prompt "Dealer stays at #{dealer_total}"
   end
 
-  puts "==============="
-  prompt "Dealer has #{dealer_cards}, for a total of: #{dealer_total}"
-  prompt "Player has #{player_cards}, for a total of: #{player_total}"
+  display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
 
-  display_result(dealer_total, player_total)
 
   break unless play_again?
 end
