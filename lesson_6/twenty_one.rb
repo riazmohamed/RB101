@@ -87,7 +87,9 @@ end
 
 def find_champion(player, dealer)
   result = player == FIRST_TO_WIN ? "Player" : "Dealer"
-  puts "The overall champion is the #{result}."
+  prompt "Your overall score is: #{player}"
+  prompt "Dealer's overall score is: #{dealer}"
+  prompt "The overall champion is the #{result}."
 end
 
 loop do
@@ -97,8 +99,8 @@ loop do
     system('clear') || system('cls')
     prompt "Welcome to Twenty-One!"
 
-    puts "Player score: #{player_score}"
-    puts "Dealer score: #{dealer_score}"
+    prompt "Player score: #{player_score}"
+    prompt "Dealer score: #{dealer_score}"
 
     deck = initialize_deck
     player_cards = []
@@ -182,8 +184,6 @@ loop do
 
     if player_score == FIRST_TO_WIN || dealer_score == FIRST_TO_WIN
       find_champion(player_score, dealer_score)
-      puts "Player score: #{player_score}"
-      puts "Dealer score: #{dealer_score}"
       break
     end
 
