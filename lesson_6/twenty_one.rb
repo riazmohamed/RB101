@@ -146,7 +146,6 @@ loop do
       else
         next
       end
-      # play_again? ? next : break
     else
       prompt "Dealer stays at #{dealer_total}"
     end
@@ -173,7 +172,6 @@ loop do
       else
         next
       end
-      # play_again? ? next : break
     else
       prompt "Dealer stays at #{dealer_total}"
     end
@@ -191,12 +189,5 @@ loop do
   end
   break unless play_again?
 end
-# if player_score == 5 || dealer_score == 5
-#   find_champion(player_score, dealer_score)
-#   break
-# end
-#
-# puts "Player score: #{player_score}"
-# puts "Dealer score: #{dealer_score}"
 
 prompt "Thank you for playing Twenty_One! Good bye!"
