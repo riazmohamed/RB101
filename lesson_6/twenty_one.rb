@@ -12,6 +12,7 @@ end
 def total(cards)
   values = cards.map { |card| card[1] }
 
+  # rubocop:disable Style/ConditionalAssignment
   sum = 0
   values.each do |value|
     if value == "A"
@@ -22,6 +23,7 @@ def total(cards)
       sum += value.to_i
     end
   end
+  # rubocop:enable Style/ConditionalAssignment
 
   values.select { |value| value == "A" }.count.times do
     sum -= 10 if sum > 21
@@ -31,7 +33,7 @@ def total(cards)
 end
 
 def busted?(cards)
-   total(cards) > 21
+  total(cards) > 21
 end
 
 def detect_result(dealer_cards, player_cards)
@@ -88,7 +90,9 @@ loop do
   end
 
   prompt "Dealer has #{dealer_cards[0]} and ?"
+  # rubocop:disable Layout/LineLength
   prompt "You have: #{player_cards[0]} and #{player_cards[1]}, for a total of #{total(player_cards)}."
+  # rubocop:enable Layout/LineLength
 
   loop do
     player_turn = nil
