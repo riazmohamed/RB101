@@ -40,7 +40,6 @@ def busted?(cards)
 end
 
 def detect_result(dealer_total, player_total)
-
   if player_total > MAXIMUM_SUM
     :player_busted
   elsif dealer_total > MAXIMUM_SUM
@@ -71,7 +70,7 @@ def display_result(dealer_total, player_total)
   end
 end
 
-def display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
+def grand_winner(dealer_cards, player_cards, dealer_total, player_total)
   puts "==============="
   prompt "Dealer has #{dealer_cards}, for a total of: #{dealer_total}"
   prompt "Player has #{player_cards}, for a total of: #{player_total}"
@@ -140,7 +139,7 @@ loop do
     end
 
     if busted?(player_cards)
-      display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
+      grand_winner(dealer_cards, player_cards, dealer_total, player_total)
       sleep(1.5)
       dealer_score += 1
       if player_score == FIRST_TO_WIN || dealer_score == FIRST_TO_WIN
@@ -166,7 +165,7 @@ loop do
 
     if busted?(dealer_cards)
       prompt "Dealer total is now: #{dealer_total}"
-      display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
+      grand_winner(dealer_cards, player_cards, dealer_total, player_total)
       sleep(1.5)
       player_score += 1
       if player_score == FIRST_TO_WIN || dealer_score == FIRST_TO_WIN
@@ -179,14 +178,13 @@ loop do
       prompt "Dealer stays at #{dealer_total}"
     end
 
-    display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
+    grand_winner(dealer_cards, player_cards, dealer_total, player_total)
     sleep(1.5)
 
     if player_score == FIRST_TO_WIN || dealer_score == FIRST_TO_WIN
       find_champion(player_score, dealer_score)
       break
     end
-
   end
   break unless play_again?
 end
