@@ -85,7 +85,7 @@ def play_again?
 end
 
 def find_champion(player, dealer)
-  result = player == 5 ? "Player" : "Dealer"
+  result = player == FIRST_TO_WIN ? "Player" : "Dealer"
   puts "The overall champion is the #{result}."
 end
 
@@ -140,7 +140,7 @@ loop do
       display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
       sleep(1.5)
       dealer_score += 1
-      if player_score == 5 || dealer_score == 5
+      if player_score == FIRST_TO_WIN || dealer_score == FIRST_TO_WIN
         find_champion(player_score, dealer_score)
         break
       else
@@ -167,7 +167,7 @@ loop do
       display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
       sleep(1.5)
       player_score += 1
-      if player_score == 5 || dealer_score == 5
+      if player_score == FIRST_TO_WIN || dealer_score == FIRST_TO_WIN
         find_champion(player_score, dealer_score)
         break
       else
@@ -181,7 +181,7 @@ loop do
     display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
     sleep(1.5)
 
-    if player_score == 5 || dealer_score == 5
+    if player_score == FIRST_TO_WIN || dealer_score == FIRST_TO_WIN
       find_champion(player_score, dealer_score)
       puts "Player score: #{player_score}"
       puts "Dealer score: #{dealer_score}"
