@@ -1,5 +1,7 @@
+require 'pry'
 SUITS = ['H', 'D', 'S', 'C']
 VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+FIRST_TO_WIN = 5
 
 def prompt(msg)
   puts "=> #{msg}"
@@ -82,76 +84,119 @@ def play_again?
   answer.downcase.start_with?('y')
 end
 
+def find_champion(player, dealer)
+  result = player == 5 ? "Player" : "Dealer"
+  puts "The overall champion is the #{result}."
+end
+
 loop do
-  prompt "Welcome to Twenty-One!"
-
-  deck = initialize_deck
-  player_cards = []
-  dealer_cards = []
-
-  2.times do
-    player_cards << deck.pop
-    dealer_cards << deck.pop
-  end
-
-  player_total = total(player_cards)
-  dealer_total = total(dealer_cards)
-
-  prompt "Dealer has #{dealer_cards[0]} and ?"
-  # rubocop:disable Layout/LineLength
-  prompt "You have: #{player_cards[0]} and #{player_cards[1]}, for a total of #{player_total}."
-  # rubocop:enable Layout/LineLength
-
+  player_score = 0
+  dealer_score = 0
   loop do
-    player_turn = nil
-    loop do
-      prompt "Would you like to (h)it or (s)tay?"
-      player_turn = gets.chomp.downcase
-      break if ['h', 's'].include?(player_turn)
-      prompt "Sorry, must enter 'h' or 's'."
-    end
+    system('clear') || system('cls')
+    prompt "Welcome to Twenty-One!"
 
-    if player_turn == 'h'
+    puts "Player score: #{player_score}"
+    puts "Dealer score: #{dealer_score}"
+
+    deck = initialize_deck
+    player_cards = []
+    dealer_cards = []
+
+    2.times do
       player_cards << deck.pop
-      prompt "You chose to hit!"
-      prompt "You cards are now: #{player_cards}"
-      player_total = total(player_cards)
-      prompt "Your total is now: #{player_total}"
+      dealer_cards << deck.pop
     end
 
-    break if player_turn == 's' || busted?(player_cards)
-  end
-
-  if busted?(player_cards)
-    display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
-    play_again? ? next : break
-  else
-    prompt "Dealer stays at #{dealer_total}"
-  end
-
-  prompt "Dealer turn..."
-
-  loop do
-    break if dealer_total >= 17
-
-    prompt "Dealer hits!"
-    dealer_cards << deck.pop
+    player_total = total(player_cards)
     dealer_total = total(dealer_cards)
-    prompt "Dealer's cards are now: #{dealer_cards}"
-  end
 
-  if busted?(dealer_cards)
-    prompt "Dealer total is now: #{dealer_total}"
+    prompt "Dealer has #{dealer_cards[0]} and ?"
+    # rubocop:disable Layout/LineLength
+    prompt "You have: #{player_cards[0]} and #{player_cards[1]}, for a total of #{player_total}."
+    # rubocop:enable Layout/LineLength
+
+    loop do
+      player_turn = nil
+      loop do
+        prompt "Would you like to (h)it or (s)tay?"
+        player_turn = gets.chomp.downcase
+        break if ['h', 's'].include?(player_turn)
+        prompt "Sorry, must enter 'h' or 's'."
+      end
+
+      if player_turn == 'h'
+        player_cards << deck.pop
+        prompt "You chose to hit!"
+        prompt "You cards are now: #{player_cards}"
+        player_total = total(player_cards)
+        prompt "Your total is now: #{player_total}"
+      end
+
+      break if player_turn == 's' || busted?(player_cards)
+    end
+
+    if busted?(player_cards)
+      display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
+      sleep(1.5)
+      dealer_score += 1
+      if player_score == 5 || dealer_score == 5
+        find_champion(player_score, dealer_score)
+        break
+      else
+        next
+      end
+      # play_again? ? next : break
+    else
+      prompt "Dealer stays at #{dealer_total}"
+    end
+
+    prompt "Dealer turn..."
+
+    loop do
+      break if dealer_total >= 17
+
+      prompt "Dealer hits!"
+      dealer_cards << deck.pop
+      dealer_total = total(dealer_cards)
+      prompt "Dealer's cards are now: #{dealer_cards}"
+    end
+
+    if busted?(dealer_cards)
+      prompt "Dealer total is now: #{dealer_total}"
+      display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
+      sleep(1.5)
+      player_score += 1
+      if player_score == 5 || dealer_score == 5
+        find_champion(player_score, dealer_score)
+        break
+      else
+        next
+      end
+      # play_again? ? next : break
+    else
+      prompt "Dealer stays at #{dealer_total}"
+    end
+
     display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
-    play_again? ? next : break
-  else
-    prompt "Dealer stays at #{dealer_total}"
+    sleep(1.5)
+
+    if player_score == 5 || dealer_score == 5
+      find_champion(player_score, dealer_score)
+      puts "Player score: #{player_score}"
+      puts "Dealer score: #{dealer_score}"
+      break
+    end
+
   end
-
-  display_grand_winner(dealer_cards, player_cards, dealer_total, player_total)
-
-
   break unless play_again?
 end
+# if player_score == 5 || dealer_score == 5
+#   find_champion(player_score, dealer_score)
+#   break
+# end
+#
+# puts "Player score: #{player_score}"
+# puts "Dealer score: #{dealer_score}"
 
 prompt "Thank you for playing Twenty_One! Good bye!"
